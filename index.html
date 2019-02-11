@@ -20,6 +20,7 @@
 
       body {
         display: flex;
+        overflow: hidden;
       }
 
       #artwork {
@@ -35,10 +36,10 @@
 
       #words {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        top: -25vh;
+        left: -25vw;
+        width: 150vw;
+        height: 150vh;
       }
 
       div {
@@ -138,7 +139,7 @@
     </style>
 
     <script type="text/javascript">
-      function generateRectangles(quantity) {
+      function generateDivs(quantity, target) {
         const element = "<div></div>"
         let elements = ""
         let step
@@ -147,7 +148,7 @@
           elements += element
         }
 
-        $("#artwork").append(elements)
+        target.append(elements)
       }
 
       function getRandomArbitrary(min, max) {
@@ -206,8 +207,8 @@
       }
 
       function generateWordContainerCSS(element) {
-        const x = generatePercent(400) + "%"
-        const y = generatePercent(400) + "%"
+        const x = generatePercent(150) + "vw"
+        const y = generatePercent(150) + "vh"
         const translate = [x, y].join()
         const scale = Math.random() * (1.5 - 0.2) + 0.2
         const fontSize = getRandomArbitrary(30, 130)
@@ -231,19 +232,56 @@
         }, 600)
       }
 
-      function generateWordOnTime() {
+      // function generateWordOnTime() {
+      //   setTimeout(function() {
+      //     generateWord()
+      //     generateWordOnTime()
+      //   }, 600)
+      // }
+
+      function changeTypefaceOnTime() {
         setTimeout(function() {
-          generateWord()
-          generateWordOnTime()
-        }, 600)
+          changeTypefacesAndColor()
+          changeTypefaceOnTime()
+        }, 100)
       }
 
-      function generateWord() {
-        const word = words[Math.floor(Math.random() * typefaces.length)]
-        const typefaceClass = typefaces[Math.floor(Math.random() * typefaces.length)]
+      function changeTypefacesAndColor() {
+        $("#words span").map(function() {
+          const typefaceClass = typefaces[Math.floor(Math.random() * typefaces.length)]
+          const color = generateColor()
+          $(this).removeClass().addClass(typefaceClass).css("color", color)
+        })
+      }
 
-        $("#words").append("<div class='" + typefaceClass + "'>" + word + "</div>")
-        generateWordContainerCSS($("#words div").last())
+      function splitWordToSpans(word) {
+        let spanElements = []
+
+        word.split("").map(function(character) {
+          const typefaceClass = typefaces[Math.floor(Math.random() * typefaces.length)]
+          spanElements.push("<span class='" + typefaceClass + "'>" + character + "</span>")
+        })
+
+        let spansHTML = spanElements.join("")
+
+        return spansHTML
+      }
+
+      // function generateWord() {
+      //   const word = words[Math.floor(Math.random() * typefaces.length)]
+      //   const spansHTML = splitWordToSpans(word)
+      //
+      //   $("#words").append("<div>" + spansHTML + "</div>")
+      //   generateWordContainerCSS($("#words div").last())
+      // }
+
+      function generateWords() {
+        $("#words div").map(function() {
+          const word = words[Math.floor(Math.random() * typefaces.length)]
+          const spansHTML = splitWordToSpans(word)
+          $(this).html(spansHTML)
+          generateWordContainerCSS($(this))
+        })
       }
 
       function changeArtworkSizeOnMouseMove() {
@@ -267,10 +305,13 @@
 
       // DOM Ready or project launch
       $(function() {
-        generateRectangles(10)
+        generateDivs(10, $("#artwork"))
+        generateDivs(60, $("#words"))
+        generateWords()
         changeRectangleOnTime()
+        changeTypefaceOnTime()
         changeArtworkSizeOnMouseMove()
-        generateWordOnTime()
+        // generateWordOnTime()
         // changeTypefaceOnMouseMove()
       })
     </script>
