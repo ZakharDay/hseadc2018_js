@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+
+    <link href="https://fonts.googleapis.com/css?family=Bangers|Bevan|Bungee+Inline|Cabin+Sketch|Caveat|Fredoka+One|Gloria+Hallelujah|Gochi+Hand|Hanalei+Fill|Kdam+Thmor|Libre+Barcode+39+Text|Luckiest+Guy|Major+Mono+Display|Orbitron|Permanent+Marker|Press+Start+2P|Rokkitt|Satisfy|Secular+One|Shrikhand" rel="stylesheet">
     <script src="jquery.js" charset="utf-8"></script>
 
     <style>
@@ -28,11 +30,102 @@
         margin: auto;
         background: white;
         box-shadow: 0px 5px 30px 0px rgba(0,0,0,0.80);
+        z-index: 2;
       }
 
       div {
         position: absolute;
         will-change: transform;
+      }
+
+      #text {
+        position: absolute;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        padding: 0 30vh;
+        text-align: center;
+        font-size: 60px;
+      }
+
+      .libre {
+        font-family: 'Libre Barcode 39 Text', cursive;
+      }
+
+      .major {
+        font-family: 'Major Mono Display', monospace;
+      }
+
+      .hanalei {
+        font-family: 'Hanalei Fill', cursive;
+      }
+
+      .kdam {
+        font-family: 'Kdam Thmor', cursive;
+      }
+
+      .secular {
+        font-family: 'Secular One', sans-serif;
+      }
+
+      .gloria {
+        font-family: 'Gloria Hallelujah', cursive;
+      }
+
+      .permanent {
+        font-family: 'Permanent Marker', cursive;
+      }
+
+      .rokkitt {
+        font-family: 'Rokkitt', serif;
+      }
+
+      .satisfy {
+        font-family: 'Satisfy', cursive;
+      }
+
+      .caveat {
+        font-family: 'Caveat', cursive;
+      }
+
+      .orbitron {
+        font-family: 'Orbitron', sans-serif;
+      }
+
+      .luckiest {
+        font-family: 'Luckiest Guy', cursive;
+      }
+
+      .fredoka {
+        font-family: 'Fredoka One', cursive;
+      }
+
+      .bangers {
+        font-family: 'Bangers', cursive;
+      }
+
+      .gochi {
+        font-family: 'Gochi Hand', cursive;
+      }
+
+      .press {
+        font-family: 'Press Start 2P', cursive;
+      }
+
+      .bevan {
+        font-family: 'Bevan', cursive;
+      }
+
+      .shrikhand {
+        font-family: 'Shrikhand', cursive;
+      }
+
+      .bungee {
+        font-family: 'Bungee Inline', cursive;
+      }
+
+      .cabin {
+        font-family: 'Cabin Sketch', cursive;
       }
     </style>
 
@@ -117,14 +210,42 @@
         }, 600)
       }
 
+      function changeArtworkSizeOnMouseMove() {
+        $(document).on("mousemove", function(e) {
+          $("#artwork").css({
+            width: e.pageX + "px",
+            height: e.pageY + "px"
+          })
+        })
+      }
+
+      function changeTypefaceOnMouseMove() {
+        $(document).on("mousemove", function(e) {
+          const typefaceClass = typefaces[Math.floor(Math.random() * typefaces.length)]
+          $("#text").removeClass().addClass(typefaceClass)
+        })
+      }
+
+      const typefaces = ["libre", "major", "hanalei", "kdam", "secular", "gloria", "permanent", "rokkitt", "satisfy", "caveat", "orbitron", "luckiest", "fredoka", "bangers", "gochi", "press", "bevan", "shrikhand", "bungee", "cabin"]
+
+      // DOM Ready or project launch
       $(function() {
         generateRectangles(10)
         changeRectangleOnTime()
+        changeArtworkSizeOnMouseMove()
+        changeTypefaceOnMouseMove()
       })
     </script>
   </head>
 
   <body>
     <section id="artwork"></section>
+    <span id="text">Enzymes /ˈɛnzaɪmz/ are macromolecular biological catalysts. Enzymes accelerate chemical reactions. The molecules upon which enzymes may act are called substrates and the enzyme converts the substrates into different molecules known as products. Almost all metabolic processes in the cell need enzyme catalysis in order to occur at rates fast enough to sustain life.[1]:8.1 Metabolic pathways depend upon enzymes to catalyze individual steps. The study of enzymes is called enzymology and a new field of pseudoenzyme analysis has recently grown up, recognising that during evolution, some enzymes have lost the ability to carry out biological catalysis, which is often reflected in their amino acid sequences and unusual 'pseudocatalytic' properties.[2][3]
+
+Enzymes are known to catalyze more than 5,000 biochemical reaction types.[4] Most enzymes are proteins, although a few are catalytic RNA molecules. The latter are called ribozymes. Enzymes' specificity comes from their unique three-dimensional structures.
+
+Like all catalysts, enzymes increase the reaction rate by lowering its activation energy. Some enzymes can make their conversion of substrate to product occur many millions of times faster. An extreme example is orotidine 5'-phosphate decarboxylase, which allows a reaction that would otherwise take millions of years to occur in milliseconds.[5][6] Chemically, enzymes are like any catalyst and are not consumed in chemical reactions, nor do they alter the equilibrium of a reaction. Enzymes differ from most other catalysts by being much more specific. Enzyme activity can be affected by other molecules: inhibitors are molecules that decrease enzyme activity, and activators are molecules that increase activity. Many therapeutic drugs and poisons are enzyme inhibitors. An enzyme's activity decreases markedly outside its optimal temperature and pH, and many enzymes are (permanently) denatured when exposed to excessive heat, losing their structure and catalytic properties.
+
+Some enzymes are used commercially, for example, in the synthesis of antibiotics. Some household products use enzymes to speed up chemical reactions: enzymes in biological washing powders break down protein, starch or fat stains on clothes, and enzymes in meat tenderizer break down proteins into smaller molecules, making the meat easier to chew.</span>
   </body>
 </html>
