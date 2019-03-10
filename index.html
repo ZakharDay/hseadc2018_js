@@ -6,139 +6,15 @@
 
     <link href="https://fonts.googleapis.com/css?family=Bangers|Bevan|Bungee+Inline|Cabin+Sketch|Caveat|Fredoka+One|Gloria+Hallelujah|Gochi+Hand|Hanalei+Fill|Kdam+Thmor|Libre+Barcode+39+Text|Luckiest+Guy|Major+Mono+Display|Orbitron|Permanent+Marker|Press+Start+2P|Rokkitt|Satisfy|Secular+One|Shrikhand" rel="stylesheet">
     <script src="jquery.js" charset="utf-8"></script>
-
-    <style>
-      * {
-        transition: all 0.6s ease;
-      }
-
-      html, body {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-      }
-
-      body {
-        display: flex;
-        overflow: hidden;
-      }
-
-      #artwork {
-        position: relative;
-        overflow: hidden;
-        width: 60vh;
-        height: 90vh;
-        margin: auto;
-        background: white;
-        box-shadow: 0px 5px 30px 0px rgba(0,0,0,0.80);
-        z-index: 2;
-      }
-
-      #words {
-        position: absolute;
-        top: -25vh;
-        left: -25vw;
-        width: 150vw;
-        height: 150vh;
-      }
-
-      div {
-        position: absolute;
-        will-change: transform;
-      }
-
-      #text {
-        position: absolute;
-        box-sizing: border-box;
-        width: 100%;
-        height: 100%;
-        padding: 0 30vh;
-        text-align: center;
-        font-size: 60px;
-      }
-
-      .libre {
-        font-family: 'Libre Barcode 39 Text', cursive;
-      }
-
-      .major {
-        font-family: 'Major Mono Display', monospace;
-      }
-
-      .hanalei {
-        font-family: 'Hanalei Fill', cursive;
-      }
-
-      .kdam {
-        font-family: 'Kdam Thmor', cursive;
-      }
-
-      .secular {
-        font-family: 'Secular One', sans-serif;
-      }
-
-      .gloria {
-        font-family: 'Gloria Hallelujah', cursive;
-      }
-
-      .permanent {
-        font-family: 'Permanent Marker', cursive;
-      }
-
-      .rokkitt {
-        font-family: 'Rokkitt', serif;
-      }
-
-      .satisfy {
-        font-family: 'Satisfy', cursive;
-      }
-
-      .caveat {
-        font-family: 'Caveat', cursive;
-      }
-
-      .orbitron {
-        font-family: 'Orbitron', sans-serif;
-      }
-
-      .luckiest {
-        font-family: 'Luckiest Guy', cursive;
-      }
-
-      .fredoka {
-        font-family: 'Fredoka One', cursive;
-      }
-
-      .bangers {
-        font-family: 'Bangers', cursive;
-      }
-
-      .gochi {
-        font-family: 'Gochi Hand', cursive;
-      }
-
-      .press {
-        font-family: 'Press Start 2P', cursive;
-      }
-
-      .bevan {
-        font-family: 'Bevan', cursive;
-      }
-
-      .shrikhand {
-        font-family: 'Shrikhand', cursive;
-      }
-
-      .bungee {
-        font-family: 'Bungee Inline', cursive;
-      }
-
-      .cabin {
-        font-family: 'Cabin Sketch', cursive;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
 
     <script type="text/javascript">
+      const typefaces = ["libre", "major", "hanalei", "kdam", "secular", "gloria", "permanent", "rokkitt", "satisfy", "caveat", "orbitron", "luckiest", "fredoka", "bangers", "gochi", "press", "bevan", "shrikhand", "bungee", "cabin"]
+      const words = ["AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure", "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGrey", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen", "DarkOrange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray", "DarkSlateGrey", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DimGrey", "DodgerBlue", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold", "GoldenRod", "Gray", "Grey", "Green", "GreenYellow", "HoneyDew", "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGray", "LightGrey", "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateGray", "LightSlateGrey", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", "RebeccaPurple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "SlateGrey", "Snow", "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"]
+
+      let changeRectangleTimeout = 600
+      let changeTypefaceTimeout = 100
+
       function generateDivs(quantity, target) {
         const element = "<div></div>"
         let elements = ""
@@ -195,6 +71,7 @@
         const rotate = 0 // Math.random() * (360 - 0) + 0
         const skewX = 0 // Math.random() * (360 - 0) + 0
         const skewY = 0 // Math.random() * (360 - 0) + 0
+        const blur = getRandomArbitrary(0, 20)
 
         element.css({
           // "top":              generateShift(height) + "%",
@@ -202,7 +79,8 @@
           "transform":        "translate(" + translate + ") translateZ(0) scale(" + scale + ")" + "rotate(" + rotate + "deg)" + "skewX(" + skewX + "deg)" + "skewY(" + skewY + "deg)",
           "width":            width + "%",
           "height":           height + "%",
-          "background-color": generateColor()
+          "background-color": generateColor(),
+          // "filter":           "blur(" + blur + "px)"
         })
       }
 
@@ -229,7 +107,7 @@
         setTimeout(function() {
           changeRectanglesCSS()
           changeRectangleOnTime()
-        }, 600)
+        }, changeRectangleTimeout)
       }
 
       // function generateWordOnTime() {
@@ -243,7 +121,7 @@
         setTimeout(function() {
           changeTypefacesAndColor()
           changeTypefaceOnTime()
-        }, 100)
+        }, changeTypefaceTimeout)
       }
 
       function changeTypefacesAndColor() {
@@ -300,9 +178,6 @@
         })
       }
 
-      const typefaces = ["libre", "major", "hanalei", "kdam", "secular", "gloria", "permanent", "rokkitt", "satisfy", "caveat", "orbitron", "luckiest", "fredoka", "bangers", "gochi", "press", "bevan", "shrikhand", "bungee", "cabin"]
-      const words = ["AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure", "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGrey", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen", "DarkOrange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray", "DarkSlateGrey", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DimGrey", "DodgerBlue", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold", "GoldenRod", "Gray", "Grey", "Green", "GreenYellow", "HoneyDew", "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGray", "LightGrey", "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateGray", "LightSlateGrey", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", "RebeccaPurple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "SlateGrey", "Snow", "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"]
-
       // DOM Ready or project launch
       $(function() {
         generateDivs(10, $("#artwork"))
@@ -313,11 +188,31 @@
         changeArtworkSizeOnMouseMove()
         // generateWordOnTime()
         // changeTypefaceOnMouseMove()
+
+        $(window).on("resize", function() {
+          // console.log("Yo!", $(window).width(), $(window).height())
+          changeRectangleTimeout = $(window).width()
+          changeTypefaceTimeout = $(window).width()
+
+          let a = getRandomArbitrary(50, 300)
+          let b = getRandomArbitrary(3, 20)
+          let c = getRandomArbitrary(50, 300)
+          let d = getRandomArbitrary(100, 500)
+          let e = getRandomArbitrary(50, 300)
+          let f = getRandomArbitrary(50, 300)
+          let points = a + "," + b + " " + c + "," + d + " " + e + "," + f
+
+          $("#polygon").attr("points", points)
+        })
       })
     </script>
   </head>
 
   <body>
+    <svg height="210" width="500">
+      <polygon id="polygon" points="200,10 250,190 160,210" style="fill: lime; stroke: purple; stroke-width: 1" />
+    </svg>
+
     <section id="artwork"></section>
     <section id="words"></section>
   </body>
